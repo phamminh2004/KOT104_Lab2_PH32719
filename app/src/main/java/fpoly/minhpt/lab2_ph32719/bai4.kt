@@ -12,12 +12,26 @@ class QuanLySinhVien {
     private val danhSachSinhVien = mutableListOf<SinhVien>()
 
     fun themSinhVien() {
-        println("Mời nhập tên: ")
-        var ten = readln()
-        println("Mời nhập mssv: ")
-        var mssv = readln()
-        println("Mời nhập điểm: ")
-        var diemTB = readln().toFloat()
+        var ten: String
+        var mssv: String
+        var diemTB: Float
+        do {
+            println("Mời nhập tên: ")
+            ten = readLine().orEmpty().trim()
+        } while (ten.isEmpty())
+        do {
+            println("Mời nhập mssv: ")
+            mssv = readLine().orEmpty().trim()
+        } while (mssv.isEmpty())
+        do {
+            println("Mời nhập điểm: ")
+            val diemInput = readLine().orEmpty().trim()
+            diemTB = if (diemInput.matches("^[1-9]\\d*$".toRegex())) {
+                diemInput.toFloat()
+            } else {
+                Float.NaN
+            }
+        } while (diemTB.isNaN())
         println("Đã tốt nghiệp chưa: (true/false)")
         var daTotNghiep = readLine()?.toBooleanStrictOrNull()
         println("Mời nhập tuổi: ")
@@ -40,12 +54,26 @@ class QuanLySinhVien {
         var mssv = readln()
         val index = danhSachSinhVien.indexOfFirst { it.mssv == mssv }
         if (index != -1) {
-            println("Mời nhập tên: ")
-            var ten = readln()
-            println("Mời nhập mssv: ")
-            var mssv = readln()
-            println("Mời nhập điểm: ")
-            var diemTB = readln().toFloat()
+            var ten: String
+            var mssv: String
+            var diemTB: Float
+            do {
+                println("Mời nhập tên: ")
+                ten = readLine().orEmpty().trim()
+            } while (ten.isEmpty())
+            do {
+                println("Mời nhập mssv: ")
+                mssv = readLine().orEmpty().trim()
+            } while (mssv.isEmpty())
+            do {
+                println("Mời nhập điểm: ")
+                val diemInput = readLine().orEmpty().trim()
+                diemTB = if (diemInput.matches("^[1-9]\\d*$".toRegex())) {
+                    diemInput.toFloat()
+                } else {
+                    Float.NaN
+                }
+            } while (diemTB.isNaN())
             println("Đã tốt nghiệp chưa: (true/flase)")
             var daTotNghiep = readLine()?.toBooleanStrictOrNull()
             println("Mời nhập tuổi: ")
@@ -71,11 +99,12 @@ class QuanLySinhVien {
 fun main() {
     val quanLySV = QuanLySinhVien()
     var s: String?
-    println("1. Xem danh sách SV")
-    println("2. Thêm SV")
-    println("3. Sửa SV")
-    println("4. Xóa SV")
     do {
+        println("====== Quản lý sinh viên ======")
+        println("1. Xem danh sách SV")
+        println("2. Thêm SV")
+        println("3. Sửa SV")
+        println("4. Xóa SV")
         println("Mời chọn: ")
         s = readLine()
         when (s) {
@@ -95,13 +124,11 @@ fun main() {
                 quanLySV.xoaSinhVien()
             }
 
-            else -> println("Không hợp lệ. Mời chọn lại. ")
-
+            else -> println("Không hợp lệ. Hãy chọn lại (1-4).")
         }
-
-        print("Tiếp không?(c/k):")
+        print("Bạn có tiếp tục không? (y/n):")
         s = readLine()
-        if (s == "k")
+        if (s == "n")
             break;
     } while (true)
 }
